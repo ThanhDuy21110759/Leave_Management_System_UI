@@ -1,9 +1,23 @@
-import { SignIn } from "./component/SignIn";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import SignIn from './components/sign_in'
+import SignUp from './components/signup'
+import './index.css'
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [email, setEmail] = useState('')
+
   return (
-    <SignIn />
-  );
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignIn email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+          <Route path="/SignUp" element={<SignUp setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
 
-export default App;
+export default App
