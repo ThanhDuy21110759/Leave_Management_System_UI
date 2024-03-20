@@ -1,17 +1,26 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const Signup = (props) => {
-  const { loggedIn, email } = props
-  const navigate = useNavigate()
+function SignUp() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onButtonClick = () => {
-    // You'll update this function later
-  }
-
-  const preventRefresh = (e) => { // Define preventRefresh if needed
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    try {
+      const response = await axios.post('http://localhost:8080/api/auth/signup', {
+        name,
+        email,
+        password,
+        role : ["employee"]
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="wrapper signUp">
@@ -27,7 +36,7 @@ const Signup = (props) => {
           </div>
           <div>
             <label htmlFor="name">E-Mail</label>
-            <input type="text" id="name" placeholder="Enter your mail" />
+            <input type="email" id="email" placeholder="Enter your mail" />
           </div>
           <div>
             <label htmlFor="password">Password</label>
@@ -47,7 +56,7 @@ const Signup = (props) => {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default Signup
+export default SignUp;

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import SignIn from './components/sign_in'
-import SignUp from './components/signup'
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 import './index.css'
 import { useEffect, useState } from 'react'
 
