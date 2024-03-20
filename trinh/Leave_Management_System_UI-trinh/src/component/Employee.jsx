@@ -1,43 +1,22 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
 
-const Employee = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [employeeName, setEmployeeName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [reason, setReason] = useState('');
+export const EmployeePage = () => {
+    const [isModalVisible, setModalVisible] = useState(false);
 
-  const handleNewRequest = async () => {
-    setIsModalVisible(true);
-  }
-
-  const handleCloseModal = async () => {
-    setIsModalVisible(false);
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8080/api/employee/request', {
-        // employeeName,
-        startDate,
-        endDate,
-        reason,
-      });
-      if (response.data.success) {
-        setIsModalVisible(false);
-      } else {
-        console.error('Request failed');
-      }
-    } catch (error) {
-      console.error(error);
+    const handleNewRequest= async ()=>{
+        setModalVisible(true)
     }
-  };
 
-  return (
-    <>
-      <div className="shadow-lg rounded-lg overflow-hidden mx-4 md:mx-10 height100">
+    const handCloseModal = async()=>{
+        setModalVisible(false)
+    }
+
+    const handleSubmit = async()=>{
+        setModalVisible(false)
+    }
+    return(                
+        <>
+            <div className="shadow-lg rounded-lg overflow-hidden mx-4 md:mx-10 height100">
                 <nav className="bg-white border-gray-200 dark:bg-gray-900 my-4">
                     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
                         <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -105,33 +84,31 @@ const Employee = () => {
                     </tbody>
                 </table>
             </div>
-      <div className={`request-modal ${isModalVisible ? 'modal-visible' : 'modal-hidden'}`}>
-        <div className='modal-container'>
-          <div className='modal-header'>
-            <h3>NEW REQUEST</h3>
-          </div>
-          <form className='modal-content' onSubmit={handleSubmit}>
-            <div className='modal-input-area'>
-              <label>Employee's name</label>
-              <input placeholder="Eg: Nguyen Van A" value={employeeName} onChange={e => setEmployeeName(e.target.value)}></input>
-              <label>Start Date</label>
-              <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}></input>
-              <label>End Date</label>
-              <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}></input>
-              <label>Reason</label>
-              <input placeholder="" value={reason} onChange={e => setReason(e.target.value)}></input>
+            <div className={`request-modal ${isModalVisible ? 'modal-visible' : 'modal-hidden'}`}>
+            <div className='modal-container'>
+                <div className='modal-header'>
+                    <h3>NEW REQUEST</h3>
+                </div>
+                <div className='modal-content'>
+                    <div className='modal-input-area'>
+                        <label>Employee's name</label>
+                        <input placeholder="Eg: Nguyen Van A"></input>
+                        <label>Start Date</label>
+                        <input type="date"></input>
+                        <label>End Date</label>
+                        <input type="date"></input>
+                        <label>Reason</label>
+                        <input placeholder=""></input>
+                    </div>
+                    <div className='access-modal-button'>
+                        <button className='submit-modal-btn' onClick={handCloseModal}>SUBMIT</button>
+                    </div>
+                    <div className='cancel-modal-button'>
+                        <button className='submit-modal-btn modal-cancel' onClick={handleSubmit}>CANCEL</button>
+                    </div>
+                </div>
             </div>
-            <div className='access-modal-button'>
-              <button className='submit-modal-btn' type="submit">SUBMIT</button>
-            </div>
-            <div className='cancel-modal-button'>
-              <button className='submit-modal-btn modal-cancel' onClick={handleCloseModal}>CANCEL</button>
-            </div>
-          </form>
         </div>
-      </div>
-    </>
-  );
-};
-
-export default Employee;
+        </>
+    );
+}
